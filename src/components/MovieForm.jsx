@@ -1,16 +1,16 @@
-import React, { useState } from "react";
+import React from "react";
 import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { useForm } from "react-hook-form";
 
-export default function MovieForm({toggle}) {
+export default function MovieForm({toggle,setMovieList}) {
   const {register,handleSubmit,errors}=useForm();
-  const [movieList,setMovieList]=useState([{name:"Force"}]);
+  
 
   function onSubmit(data){
     console.log(data);
     setMovieList(prev=>{
       const newList=[...prev,{...data,id:Math.random()*100}];
-      localStorage.setItem('list',newList);
+      localStorage.setItem('list',JSON.stringify(newList));
       return newList;
     });
   }
@@ -19,23 +19,23 @@ export default function MovieForm({toggle}) {
     <div className="movieForm">
       <Form onSubmit={handleSubmit(onSubmit)}>
         <FormGroup>
-          <Label for="name">Name</Label>
-          <Input ref={register({required:true})}
+          <Label for="movie">Name</Label>
+          <Input innerRef={register({required:true})}
             type="text"
-            name="name"
-            id="name"
+            name="movie"
+            id="movie"
             placeholder="name of your favourite movie"
           />
           {errors.name && <p>This field is required</p>}
         </FormGroup>
         <FormGroup>
           <Label for="image">Image</Label>
-          <Input ref={register({required:true})} type="file" name="image" id="image" />
+          <Input innerRef={register({required:true})} type="text" name="image" id="image" placeholder="image url of your favourite movie" />
           {errors.image && <p>This field is required</p>}
         </FormGroup>
         <FormGroup>
           <Label for="rating">Ratings</Label>
-          <Input ref={register({required:true})}
+          <Input innerRef={register({required:true})}
             type="number"
             name="rating"
             id="rating"
@@ -45,7 +45,7 @@ export default function MovieForm({toggle}) {
         </FormGroup>
         <FormGroup>
           <Label for="overview">Overview</Label>
-          <Input ref={register({required:true})}
+          <Input innerRef={register({required:true})}
             type="textarea"
             name="overview"
             id="overview"
@@ -53,10 +53,10 @@ export default function MovieForm({toggle}) {
           />
           {errors.overview && <p>This field is required</p>}
         </FormGroup>
-        <input type="submit" />
-        {/* <Button color="primary" type="submit" onClick={toggle}>
+        
+        <Button color="primary" type="submit" onClick={toggle}>
           Done
-        </Button> */}
+        </Button>
       </Form>
     </div>
   );

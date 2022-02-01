@@ -1,14 +1,12 @@
 import React from 'react';
 import './App.css';
-import AddMovie from './components/AddMovie';
-import MovieList from './components/MovieList';
+import Home from './components/Home';
+
 
 function App() {
   return (
     <div className="App">
-      <AddMovie />
-      <MovieList />
-      
+      <Home />
     </div>
   );
 }

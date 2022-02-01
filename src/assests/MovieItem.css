@@ -1,0 +1,21 @@
+.movieItem{
+    border:2px whitesmoke solid;
+    box-shadow:20px 20px 50px gainsboro;
+    margin:5% 10%;
+    padding: 2rem 3rem;
+    background-color: #effaef;
+}
+.movie-img{
+    padding: 2rem 0;
+}
+
+.movie-img>img{
+    border:2px white solid;
+    margin-right: 1rem;
+    width:100%;
+}
+
+.movie-info{
+    margin-left: 2rem;
+
+}
