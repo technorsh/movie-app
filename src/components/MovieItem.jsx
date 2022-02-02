@@ -1,4 +1,5 @@
 import React from "react";
+import { Link } from "react-router-dom";
 import { Container, Row, Col ,Button} from 'reactstrap';
 import '../assests/MovieItem.css'
 
@@ -15,9 +16,13 @@ export default function MovieItem({movie,id,image,rating,overview}){
             <Col md="8">
               <div className="movie-info">
                 <h1>{movie}</h1>
-                <h4>⭐️ {rating}</h4>
-                <p>{overview.split(' ').slice(0,20).join(" ")+"..."}</p>
-                <Button color="danger" size="md">Read more</Button>
+                <h4>⭐️⭐️⭐️ {rating}</h4>
+                <p>{overview.split(" ").slice(0, 20).join(" ") + "..."}</p>
+                <Link to={`/${id}`}>
+                  <Button color="danger" size="md">
+                    Read more
+                  </Button>
+                </Link>
               </div>
             </Col>
           </Row>

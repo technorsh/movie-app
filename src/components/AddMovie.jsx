@@ -1,6 +1,7 @@
 import React,{useState} from "react";
-import { Button, Modal, ModalHeader, ModalBody, ModalFooter } from 'reactstrap';
+import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import MovieForm from "./MovieForm";
+import '../assests/AddMovie.css';
 
 export default function AddMovie({setMovieList}){
     const [modal, setModal] = useState(false);
@@ -15,13 +16,7 @@ export default function AddMovie({setMovieList}){
           <ModalHeader toggle={toggle}>Add Your Favourite Movie</ModalHeader>
           <ModalBody>
             <MovieForm toggle={toggle} setMovieList={setMovieList}/>
-            
           </ModalBody>
-          {/* <ModalFooter>
-            <Button color="primary" onClick={toggle}>
-              Done
-            </Button>
-          </ModalFooter> */}
         </Modal>
       </div>
     );

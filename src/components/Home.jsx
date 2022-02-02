@@ -1,12 +1,12 @@
-import React,{useState} from "react";
+import React from "react";
 import AddMovie from "./AddMovie";
 import MovieList from "./MovieList";
+import '../assests/Home.css';
 
-export default function(){
-    const [movieList,setMovieList]=useState([]);
+export default function({setMovieList}){
 
     return (
-        <div>
+        <div className="home">
             <AddMovie setMovieList={setMovieList} />
             <MovieList />
         </div>
