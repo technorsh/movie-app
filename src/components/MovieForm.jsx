@@ -29,7 +29,6 @@ export default function MovieForm({toggle,setMovieList,defaultValues={}}) {
   }
   const watchGenres=watch('genres');
 
-
   function onSubmit(data){
     setMovieList(prev=>{
       let newList;

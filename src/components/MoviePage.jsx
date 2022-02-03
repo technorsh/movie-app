@@ -7,8 +7,9 @@ import MovieForm from "./MovieForm";
 
 
 export default function MoviePage({setMovieList}){
-  const [modal, setModal] = useState(false);
+    const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
+
     const {id}=useParams();
     const list=JSON.parse(localStorage.getItem('list'));
     const movieList=list??[];

@@ -8,7 +8,7 @@ export default function({setMovieList}){
     return (
         <div className="home">
             <AddMovie setMovieList={setMovieList} />
-            <MovieList />
+            <MovieList setMovieList={setMovieList} />
         </div>
     );
 }
