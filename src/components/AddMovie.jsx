@@ -3,7 +3,7 @@ import { Button, Modal, ModalHeader, ModalBody } from 'reactstrap';
 import MovieForm from "./MovieForm";
 import '../assests/AddMovie.css';
 
-export default function AddMovie({setMovieList}){
+export default function AddMovie(){
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
 
@@ -15,7 +15,7 @@ export default function AddMovie({setMovieList}){
         <Modal isOpen={modal} toggle={toggle}>
           <ModalHeader toggle={toggle}>Add Your Favourite Movie</ModalHeader>
           <ModalBody>
-            <MovieForm toggle={toggle} setMovieList={setMovieList}/>
+            <MovieForm toggle={toggle} />
           </ModalBody>
         </Modal>
       </div>

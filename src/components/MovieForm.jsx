@@ -1,6 +1,7 @@
-import React, { useEffect } from "react";
+import React, { useEffect ,useContext} from "react";
 import { Button, Form, FormGroup, Label, Input} from "reactstrap";
 import { useForm } from "react-hook-form";
+import MovieListContext from "../context/MovieListContext";
 import Select from 'react-select';
 const options = [
   { value: 'Comedy', label: 'Comedy' },
@@ -8,10 +9,13 @@ const options = [
   { value: 'Horror', label: 'Horror' },
   { value: 'Thiller', label: 'Thiller' },
   { value: 'Romance', label: 'Romance' },
+  { value: 'Crime', label: 'Crime' },
+  { value: 'Mystery', label: 'Mystery' },
   { value: 'Action', label: 'Action' },
 ];
-export default function MovieForm({toggle,setMovieList,defaultValues={}}) {
+export default function MovieForm({toggle,defaultValues={}}) {
   const {register,handleSubmit,watch,setValue}=useForm({defaultValues});
+  const {setMovieList}=useContext(MovieListContext);
   
   
   useEffect(()=>{
@@ -25,14 +29,19 @@ export default function MovieForm({toggle,setMovieList,defaultValues={}}) {
   },[defaultValues?.genres]);
 
   function selectHandler(opt){
+    // console.log('opt ',opt);
     setValue('genres',opt);
+    // debugger
   }
   const watchGenres=watch('genres');
+  // console.log(watchGenres);
 
   function onSubmit(data){
+    // console.log(watch('genres'));
+    // console.log(data);
     setMovieList(prev=>{
       let newList;
-      if(defaultValues.id){
+      if(defaultValues?.id){
           newList=prev?.map(item=>{
           if(item?.id===defaultValues?.id){
             return {...item,...data};
@@ -43,6 +52,7 @@ export default function MovieForm({toggle,setMovieList,defaultValues={}}) {
       }else{
          newList = [...prev, { ...data, id: Math.floor(Math.random() * 100) }];
       }
+      // console.log(newList);
       localStorage.setItem('list',JSON.stringify(newList)); 
       return newList;
     });

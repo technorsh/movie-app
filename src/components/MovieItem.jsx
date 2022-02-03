@@ -1,12 +1,15 @@
-import React ,{useState} from "react";
+import React ,{useContext, useState} from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col ,Button, Modal, ModalHeader, ModalBody} from 'reactstrap';
-import '../assests/MovieItem.css'
 import MovieForm from "./MovieForm";
+import MovieListContext from "../context/MovieListContext";
+import '../assests/MovieItem.css'
 
-export default function MovieItem({setMovieList , movie}){
+export default function MovieItem({ movie}){
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
+
+  const {setMovieList}=useContext(MovieListContext);
 
   function removeHandler(){
     setMovieList(prev=> {
@@ -58,7 +61,6 @@ export default function MovieItem({setMovieList , movie}){
             <MovieForm
               toggle={toggle}
               defaultValues={movie}
-              setMovieList={setMovieList}
             />
           </ModalBody>
         </Modal>

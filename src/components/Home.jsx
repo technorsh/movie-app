@@ -3,12 +3,12 @@ import AddMovie from "./AddMovie";
 import MovieList from "./MovieList";
 import '../assests/Home.css';
 
-export default function({setMovieList}){
+export default function(){
 
     return (
         <div className="home">
-            <AddMovie setMovieList={setMovieList} />
-            <MovieList setMovieList={setMovieList} />
+            <AddMovie />
+            <MovieList />
         </div>
     );
 }

@@ -1,14 +1,16 @@
-import React,{useState} from "react";
+import React,{useContext, useState} from "react";
 import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import { Container,Row ,Col,Badge,ListGroup,ListGroupItem,Button , Modal, ModalHeader, ModalBody} from "reactstrap";
 import '../assests/MoviePage.css';
+import MovieListContext from "../context/MovieListContext";
 import MovieForm from "./MovieForm";
 
 
-export default function MoviePage({setMovieList}){
+export default function MoviePage(){
     const [modal, setModal] = useState(false);
     const toggle = () => setModal(!modal);
+    const {setMovieList}=useContext(MovieListContext);
 
     const {id}=useParams();
     const list=JSON.parse(localStorage.getItem('list'));
@@ -18,25 +20,11 @@ export default function MoviePage({setMovieList}){
 
     function removeHandler(){
       setMovieList(prev=> {
-        const newList=prev.filter(item=>item.id!==parseInt(id));
+        const newList=prev.filter(item=>item.id!==movie.id);
         localStorage.setItem('list',JSON.stringify(newList));
         return newList;
       });
     }
-    // const movie = {
-    //   genres: ["Action","Comedy"],
-    //   id: 73.07921168487535,
-    //   image:
-    //     "https://resize.indiatvnews.com/en/resize/newbucket/715_-/2021/11/dhamaka-1637310639.jpg",
-    //   movie: "Dhamaka",
-    //   overview:
-    //     "When a cynical ex-TV news anchor gets an alarming call on his radio show, he sees a chance for a career comeback -- but it may cost him his conscience.",
-    //   rating: "7",
-    //   releaseDate: "2022-01-30",
-    //   voteCount: "3000",
-    //   language:"English,Hindi,Spanish",
-    //   cast:"Kartik Aryan,Mrunal Thakur,Akshay Kumar,Katrina Kaif",
-    // };
 
     return (
       <div className="moviePage">
@@ -57,8 +45,8 @@ export default function MoviePage({setMovieList}){
                 </div>
                 <div className="movieGenres">
                   <span>Tags : </span>
-                  {movie.genres.map((item) => (
-                    <span className="genreItem" key={item}>
+                  {movie.genres.map((item,idx) => (
+                    <span className="genreItem" key={idx}>
                       <Badge color="success" pill>
                         {item.label}
                       </Badge>
