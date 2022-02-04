@@ -1,63 +1,46 @@
-import React, { useEffect ,useContext} from "react";
-import { Button, Form, FormGroup, Label, Input} from "reactstrap";
+import React, { useEffect, useContext } from "react";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { useForm } from "react-hook-form";
-import MovieListContext from "../context/MovieListContext";
-import Select from 'react-select';
+import Select from "react-select";
+import AppContext from "../context/AppContext";
 const options = [
-  { value: 'Comedy', label: 'Comedy' },
-  { value: 'Drama', label: 'Drama' },
-  { value: 'Horror', label: 'Horror' },
-  { value: 'Thiller', label: 'Thiller' },
-  { value: 'Romance', label: 'Romance' },
-  { value: 'Crime', label: 'Crime' },
-  { value: 'Mystery', label: 'Mystery' },
-  { value: 'Action', label: 'Action' },
+  { value: "Comedy", label: "Comedy" },
+  { value: "Drama", label: "Drama" },
+  { value: "Horror", label: "Horror" },
+  { value: "Thiller", label: "Thiller" },
+  { value: "Romance", label: "Romance" },
+  { value: "Crime", label: "Crime" },
+  { value: "Mystery", label: "Mystery" },
+  { value: "Action", label: "Action" },
 ];
-export default function MovieForm({toggle,defaultValues={}}) {
-  const {register,handleSubmit,watch,setValue}=useForm({defaultValues});
-  const {setMovieList}=useContext(MovieListContext);
-  
-  
-  useEffect(()=>{
-    register('genres', { required: true });
-  },[]);
+export default function MovieForm({ toggle, defaultValues = {} }) {
+  const { register, handleSubmit, watch, setValue } = useForm({
+    defaultValues,
+  });
+  const { actions } = useContext(AppContext);
 
-  useEffect(()=>{
-    if(defaultValues?.genres){
+  useEffect(() => {
+    register("genres", { required: true });
+  }, []);
+
+  useEffect(() => {
+    if (defaultValues?.genres) {
       selectHandler(defaultValues?.genres);
     }
-  },[defaultValues?.genres]);
+  }, [defaultValues?.genres]);
 
-  function selectHandler(opt){
-    // console.log('opt ',opt);
-    setValue('genres',opt);
-    // debugger
+  function selectHandler(opt) {  
+    setValue("genres", opt);
   }
-  const watchGenres=watch('genres');
-  // console.log(watchGenres);
+  const watchGenres = watch("genres");
 
-  function onSubmit(data){
-    // console.log(watch('genres'));
-    // console.log(data);
-    setMovieList(prev=>{
-      let newList;
-      if(defaultValues?.id){
-          newList=prev?.map(item=>{
-          if(item?.id===defaultValues?.id){
-            return {...item,...data};
-          }else{
-            return item;
-          }
-        });
-      }else{
-         newList = [...prev, { ...data, id: Math.floor(Math.random() * 100) }];
-      }
-      // console.log(newList);
-      localStorage.setItem('list',JSON.stringify(newList)); 
-      return newList;
-    });
+  function onSubmit(data) {
+    if (defaultValues?.id) {
+      actions.onEditHandler(defaultValues?.id, data, toggle);
+    } else {
+      actions.onAddHandler(data, toggle);
+    }
   }
-  
 
   return (
     <div className="movieForm">
@@ -124,7 +107,14 @@ export default function MovieForm({toggle,defaultValues={}}) {
         </FormGroup>
         <FormGroup>
           <Label for="genres">Genres</Label>
-          <Select isMulti={true} name="genres" id="genres" value={watchGenres} options={options} onChange={selectHandler} />
+          <Select
+            isMulti={true}
+            name="genres"
+            id="genres"
+            value={watchGenres}
+            options={options}
+            onChange={selectHandler}
+          />
         </FormGroup>
         <FormGroup>
           <Label for="overview">Overview</Label>
@@ -146,8 +136,8 @@ export default function MovieForm({toggle,defaultValues={}}) {
             placeholder="movie cast seperated by comma's"
           />
         </FormGroup>
-        <Button color="primary" type="submit" onClick={toggle}>
-          Done
+        <Button color="primary" type="submit">
+          Submit
         </Button>
       </Form>
     </div>

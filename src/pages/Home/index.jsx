@@ -1,9 +1,9 @@
 import React from "react";
 import AddMovie from "./AddMovie";
 import MovieList from "./MovieList";
-import '../assests/Home.css';
+import '../../assests/css/Home.css';
 
-export default function(){
+export default function Home(){
 
     return (
         <div className="home">
