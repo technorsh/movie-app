@@ -25,17 +25,21 @@ export default function AppProvider(props){
         });
     }
 
+    
     const onAddHandler = (values, callback) => {
+        //adding values to movie list and also adding it to local storage
         setMovieList(prev => {
             const newList = [...prev, { ...values, id: Math.floor(Math.random() * 100) }];
             localStorage.setItem('list', JSON.stringify(newList));
             return newList;
         });
         callback && callback();
+        //after adding displaying a success alert box
         sweetAlert('success','Movie added successfully !');
     }
 
     const onEditHandler = (id, values, callback) => {
+        //updating the value for that particular id in movie list and local storage
         setMovieList(prev => {
             const newList = prev?.map(item => item?.id === id
                 ? { ...item, ...values }
@@ -45,7 +49,7 @@ export default function AppProvider(props){
             return newList;
         });
         callback && callback();
-
+        //after updating displaying a success alert box
         sweetAlert('success','Movie updated successfully !');
     }
 
@@ -59,6 +63,7 @@ export default function AppProvider(props){
             denyButtonText: `No`,
         }).then((result) => {
             if (result.isConfirmed) {
+                //deleting that particular movie with the given id from movie list and then updating local storage
                 setMovieList(prev => {
                     const newList = prev?.filter(item => item?.id !== id);
                     localStorage.setItem('list', JSON.stringify(newList));
@@ -66,6 +71,7 @@ export default function AppProvider(props){
                 });
                 sweetAlert('success','Movie removed successfully !');
             } else if (result.isDenied) {
+                //if user denied to delete ,then no changes
                 sweetAlert('info','Changes are not saved');
             }
         });

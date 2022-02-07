@@ -5,8 +5,9 @@ import MoviePage from './pages/MoviePage'
 import AppProvider from "./context/AppProvider";
 
 function App() {
+  //initial state of movie list
   const list = JSON.parse(localStorage.getItem("list"));
-
+  
   return (
     <BrowserRouter>
       <AppProvider list={list}>

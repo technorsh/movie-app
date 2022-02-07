@@ -3,6 +3,7 @@ import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { useForm } from "react-hook-form";
 import Select from "react-select";
 import AppContext from "../context/AppContext";
+
 const options = [
   { value: "Comedy", label: "Comedy" },
   { value: "Drama", label: "Drama" },
@@ -13,6 +14,7 @@ const options = [
   { value: "Mystery", label: "Mystery" },
   { value: "Action", label: "Action" },
 ];
+
 export default function MovieForm({ toggle, defaultValues = {} }) {
   const { register, handleSubmit, watch, setValue } = useForm({
     defaultValues,
@@ -20,16 +22,19 @@ export default function MovieForm({ toggle, defaultValues = {} }) {
   const { actions } = useContext(AppContext);
 
   useEffect(() => {
+    //registering genres manually as the component mounts because react-select does not have ref prop
     register("genres", { required: true });
   }, []);
 
   useEffect(() => {
+    //setting the default values for genres manually 
     if (defaultValues?.genres) {
       selectHandler(defaultValues?.genres);
     }
   }, [defaultValues?.genres]);
 
-  function selectHandler(opt) {  
+  function selectHandler(opt) {
+    //manually setting the values of genres to opt   
     setValue("genres", opt);
   }
   const watchGenres = watch("genres");
