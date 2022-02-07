@@ -1,20 +1,16 @@
-import React ,{useState} from "react";
+import React ,{useContext, useState} from "react";
 import { Link } from "react-router-dom";
 import { Container, Row, Col ,Button, Modal, ModalHeader, ModalBody} from 'reactstrap';
-import '../assests/MovieItem.css'
-import MovieForm from "./MovieForm";
+import MovieForm from "../../components/MovieForm";
+import AppContext from "../../context/AppContext";
+import '../../assests/css/MovieItem.css'
 
-export default function MovieItem({setMovieList , movie}){
+export default function MovieItem({ movie}){
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
 
-  function removeHandler(){
-    setMovieList(prev=> {
-      const newList=prev.filter(item=>item.id!==movie.id);
-      localStorage.setItem('list',JSON.stringify(newList));
-      return newList;
-    });
-  }
+  const {actions}=useContext(AppContext);
+
     return (
       <div className="movieItem">
         <Container>
@@ -39,7 +35,7 @@ export default function MovieItem({setMovieList , movie}){
                   </span>
                 </Link>
                 <span className="remove_button">
-                  <Button onClick={removeHandler} color="danger" size="sm">
+                  <Button onClick={()=>actions?.onRemoveHandler(movie?.id)} color="danger" size="sm">
                     Remove
                   </Button>
                 </span>
@@ -58,7 +54,6 @@ export default function MovieItem({setMovieList , movie}){
             <MovieForm
               toggle={toggle}
               defaultValues={movie}
-              setMovieList={setMovieList}
             />
           </ModalBody>
         </Modal>
