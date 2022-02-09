@@ -3,7 +3,8 @@ import Swal from 'sweetalert2';
 import AppContext from "./AppContext";
 
 export default function AppProvider(props){
-    
+    const [searchedMovieList,setSearchMovieList]=useState([]);
+    const [isSearch,setIsSearch]=useState(false);
     const[movieList,setMovieList]=useState(props.list??[]);
 
     function sweetAlert(icon,text){
@@ -78,15 +79,32 @@ export default function AppProvider(props){
         callback && callback();
     }
 
+    const onSaveHandler = (values, callback) => {
+        //adding values to movie list and also adding it to local storage
+        setMovieList(prev => {
+            const newList = [...prev, { ...values}];
+            localStorage.setItem('list', JSON.stringify(newList));
+            return newList;
+        });
+        callback && callback();
+        //after adding displaying a success alert box
+        sweetAlert('success','Movie saved successfully !');
+    }
+
     const contextValue = {
         state: {
-            movieList
+            movieList,
+            searchedMovieList,
+            isSearch
         },
         actions: {
             setMovieList,
+            setSearchMovieList,
+            setIsSearch,
             onAddHandler,
             onEditHandler,
-            onRemoveHandler
+            onRemoveHandler,
+            onSaveHandler
         }
     }
     return (

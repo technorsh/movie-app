@@ -1,6 +1,7 @@
 .moviePage{
     background-color: #f2fcf4;
     background-image: url("https://www.transparenttextures.com/patterns/climpek.png");
+    min-height: 100vh;
     padding:5rem 1rem;
 }
 

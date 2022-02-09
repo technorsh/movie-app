@@ -3,13 +3,13 @@ import { Link } from "react-router-dom";
 import { Container, Row, Col ,Button, Modal, ModalHeader, ModalBody} from 'reactstrap';
 import MovieForm from "../../components/MovieForm";
 import AppContext from "../../context/AppContext";
-import '../../assests/css/MovieItem.css'
+import '../../assests/css/MovieItem.css';
 
 export default function MovieItem({ movie}){
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
 
-  const {actions}=useContext(AppContext);
+  const {state,actions}=useContext(AppContext);
 
     return (
       <div className="movieItem">
@@ -17,33 +17,45 @@ export default function MovieItem({ movie}){
           <Row>
             <Col md="4">
               <div className="movie-img">
-                <img src={movie.image} alt={movie.movie} />
+                <img src={movie?.image??"https://clients.cylindo.com/viewer/3.x/v3.0/documentation/img/not_found.gif"} alt={movie?.movie} />
               </div>
             </Col>
             <Col md="8">
               <div className="movie-info">
-                <h1>{movie.movie}</h1>
-                <h4>⭐️⭐️⭐️ {movie.rating}</h4>
+                <h1>{movie?.movie}</h1>
+                <h4>⭐️⭐️⭐️ {movie?.rating}</h4>
                 <p>
-                  {movie.overview.split(" ").slice(0, 20).join(" ") + "..."}
+                  {movie?.overview?.split(" ").slice(0, 20).join(" ") + "..."}
                 </p>
-                <Link to={`/${movie.id}`}>
+                <Link to={`/${movie?.id}`}>
                   <span className="readMoreButton">
                     <Button color="success" size="sm">
                       Read more
                     </Button>
                   </span>
                 </Link>
-                <span className="remove_button">
+                {state?.isSearch===false && 
+                <span>
+                  <span className="remove_button">
                   <Button onClick={()=>actions?.onRemoveHandler(movie?.id)} color="danger" size="sm">
                     Remove
                   </Button>
-                </span>
-                <span className="edit_button">
+                  </span>
+                  <span className="edit_button">
                   <Button color="primary" size="sm" onClick={toggle}>
                     Edit
                   </Button>
+                  </span>
                 </span>
+                }
+                {
+                  state?.isSearch &&
+                  <span className="save_button">
+                    <Button onClick={()=>actions?.onSaveHandler(movie)} color="primary" size="sm">
+                      Save
+                    </Button>
+                  </span>
+                }
               </div>
             </Col>
           </Row>

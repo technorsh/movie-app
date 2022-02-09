@@ -1,6 +1,7 @@
 .home{
     background-color: #f2fcf4;
     background-image: url("https://www.transparenttextures.com/patterns/always-grey.png");
+    min-height: 100vh;
     height: 100%;
     padding-bottom: 5rem;
 }

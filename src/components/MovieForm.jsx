@@ -73,8 +73,8 @@ export default function MovieForm({ toggle, defaultValues = {} }) {
         <FormGroup>
           <Label for="rating">Ratings</Label>
           <Input
-            innerRef={register({ required: true })}
-            type="number"
+            innerRef={register({ required: true,pattern: /^[0-9-.]*$/})}
+            type="text"
             name="rating"
             id="rating"
             placeholder="8(out of 10)"
