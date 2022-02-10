@@ -1,5 +1,4 @@
 import React, { useContext, useState } from "react";
-import { Link } from "react-router-dom";
 import { useParams } from "react-router-dom";
 import {
   Container,
@@ -124,7 +123,6 @@ export default function MoviePage() {
           <Row>
             <Col>
               <div className="removeButton">
-                {/* <Link to="/"> */}
                   <Button
                     onClick={() => actions?.onRemoveHandler(parseInt(id))}
                     block
@@ -133,7 +131,6 @@ export default function MoviePage() {
                   >
                     Remove
                   </Button>
-                {/* </Link> */}
               </div>
             </Col>
             <Col>

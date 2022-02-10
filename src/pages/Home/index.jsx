@@ -6,15 +6,22 @@ import Search from "./Search";
 import SearchMovieList from "./SearchMovieList";
 import { useContext } from "react";
 import AppContext from "../../context/AppContext";
+import MyMovies from "./MyMovies";
 
 export default function Home(){
     const {state}=useContext(AppContext);
 
     return (
         <div className="home">
-            <AddMovie />
+            <div className="header">
+                <AddMovie />
+                <MyMovies />
+            </div>
+            {/* <AddMovie />
+            <MyMovies /> */}
+            
             <Search />
-            <SearchMovieList />
+            {state?.isSearch &&<SearchMovieList />}
             {
                 state?.isSearch===false &&
                 <MovieList />

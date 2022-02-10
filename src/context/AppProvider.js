@@ -7,6 +7,7 @@ export default function AppProvider(props){
     const [searchedMovieList,setSearchMovieList]=useState([]);
     const [isSearch,setIsSearch]=useState(false);
     const[movieList,setMovieList]=useState(props.list??[]);
+    const [input,setInput]=useState("");
     const history=useHistory();
 
     function sweetAlert(icon,text){
@@ -83,26 +84,34 @@ export default function AppProvider(props){
     }
 
     const onSaveHandler = (values, callback) => {
-        //adding values to movie list and also adding it to local storage
+        //saving values to movie list and also adding it to local storage
         setMovieList(prev => {
-            const newList = [...prev, { ...values}];
-            localStorage.setItem('list', JSON.stringify(newList));
-            return newList;
+            const elem=prev?.find(item=>item.id===values.id);
+            //if that movie already exists in movie list then don't add again else add it to the list
+            if(elem){
+                sweetAlert('success','Movie is already added !');
+                return prev;
+            }else{
+                const newList = [...prev, { ...values}];
+                localStorage.setItem('list', JSON.stringify(newList));
+                sweetAlert('success','Movie saved successfully !');
+                return newList;
+            }
         });
         callback && callback();
-        //after adding displaying a success alert box
-        sweetAlert('success','Movie saved successfully !');
     }
 
     const contextValue = {
         state: {
             movieList,
             searchedMovieList,
+            input,
             isSearch
         },
         actions: {
             setMovieList,
             setSearchMovieList,
+            setInput,
             setIsSearch,
             onAddHandler,
             onEditHandler,

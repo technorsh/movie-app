@@ -23,7 +23,7 @@ export default function MovieForm({ toggle, defaultValues = {} }) {
 
   useEffect(() => {
     //registering genres manually as the component mounts because react-select does not have ref prop
-    register("genres", { required: true });
+    register("genres", { required: false });
   }, []);
 
   useEffect(() => {
@@ -134,7 +134,7 @@ export default function MovieForm({ toggle, defaultValues = {} }) {
         <FormGroup>
           <Label for="cast">Cast</Label>
           <Input
-            innerRef={register({ required: true })}
+            innerRef={register({ required: false })}
             type="text"
             name="cast"
             id="cast"
