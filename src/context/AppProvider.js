@@ -1,4 +1,5 @@
 import React,{useState} from "react";
+import { useHistory } from "react-router-dom";
 import Swal from 'sweetalert2';
 import AppContext from "./AppContext";
 
@@ -6,6 +7,7 @@ export default function AppProvider(props){
     const [searchedMovieList,setSearchMovieList]=useState([]);
     const [isSearch,setIsSearch]=useState(false);
     const[movieList,setMovieList]=useState(props.list??[]);
+    const history=useHistory();
 
     function sweetAlert(icon,text){
         const Toast = Swal.mixin({
@@ -70,6 +72,7 @@ export default function AppProvider(props){
                     localStorage.setItem('list', JSON.stringify(newList));
                     return newList;
                 });
+                history.push("/");
                 sweetAlert('success','Movie removed successfully !');
             } else if (result.isDenied) {
                 //if user denied to delete ,then no changes

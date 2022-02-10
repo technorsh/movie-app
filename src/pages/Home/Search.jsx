@@ -27,6 +27,7 @@ export default function Search(){
 // vote_average: 6.5
 // vote_count: 210
 
+//https://api.themoviedb.org/3/movie/634649?api_key=1f49aa891b7f48738c691da267debcdf&language=en-US
     function searchHandler(){
         axios
             .get(

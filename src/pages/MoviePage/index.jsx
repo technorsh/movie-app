@@ -124,7 +124,7 @@ export default function MoviePage() {
           <Row>
             <Col>
               <div className="removeButton">
-                <Link to="/">
+                {/* <Link to="/"> */}
                   <Button
                     onClick={() => actions?.onRemoveHandler(parseInt(id))}
                     block
@@ -133,7 +133,7 @@ export default function MoviePage() {
                   >
                     Remove
                   </Button>
-                </Link>
+                {/* </Link> */}
               </div>
             </Col>
             <Col>
