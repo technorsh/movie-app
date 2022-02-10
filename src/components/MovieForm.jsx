@@ -1,53 +1,51 @@
-import React, { useEffect } from "react";
-import { Button, Form, FormGroup, Label, Input} from "reactstrap";
+import React, { useEffect, useContext } from "react";
+import { Button, Form, FormGroup, Label, Input } from "reactstrap";
 import { useForm } from "react-hook-form";
-import Select from 'react-select';
-const options = [
-  { value: 'Comedy', label: 'Comedy' },
-  { value: 'Drama', label: 'Drama' },
-  { value: 'Horror', label: 'Horror' },
-  { value: 'Thiller', label: 'Thiller' },
-  { value: 'Romance', label: 'Romance' },
-  { value: 'Action', label: 'Action' },
-];
-export default function MovieForm({toggle,setMovieList,defaultValues={}}) {
-  const {register,handleSubmit,watch,setValue}=useForm({defaultValues});
-  
-  
-  useEffect(()=>{
-    register('genres', { required: true });
-  },[]);
+import Select from "react-select";
+import AppContext from "../context/AppContext";
 
-  useEffect(()=>{
-    if(defaultValues?.genres){
+const options = [
+  { value: "Comedy", label: "Comedy" },
+  { value: "Drama", label: "Drama" },
+  { value: "Horror", label: "Horror" },
+  { value: "Thiller", label: "Thiller" },
+  { value: "Romance", label: "Romance" },
+  { value: "Crime", label: "Crime" },
+  { value: "Mystery", label: "Mystery" },
+  { value: "Action", label: "Action" },
+];
+
+export default function MovieForm({ toggle, defaultValues = {} }) {
+  const { register, handleSubmit, watch, setValue } = useForm({
+    defaultValues,
+  });
+  const { actions } = useContext(AppContext);
+
+  useEffect(() => {
+    //registering genres manually as the component mounts because react-select does not have ref prop
+    register("genres", { required: true });
+  }, []);
+
+  useEffect(() => {
+    //setting the default values for genres manually 
+    if (defaultValues?.genres) {
       selectHandler(defaultValues?.genres);
     }
-  },[defaultValues?.genres]);
+  }, [defaultValues?.genres]);
 
-  function selectHandler(opt){
-    setValue('genres',opt);
+  function selectHandler(opt) {
+    //manually setting the values of genres to opt   
+    setValue("genres", opt);
   }
-  const watchGenres=watch('genres');
+  const watchGenres = watch("genres");
 
-  function onSubmit(data){
-    setMovieList(prev=>{
-      let newList;
-      if(defaultValues.id){
-          newList=prev?.map(item=>{
-          if(item?.id===defaultValues?.id){
-            return {...item,...data};
-          }else{
-            return item;
-          }
-        });
-      }else{
-         newList = [...prev, { ...data, id: Math.floor(Math.random() * 100) }];
-      }
-      localStorage.setItem('list',JSON.stringify(newList)); 
-      return newList;
-    });
+  function onSubmit(data) {
+    if (defaultValues?.id) {
+      actions.onEditHandler(defaultValues?.id, data, toggle);
+    } else {
+      actions.onAddHandler(data, toggle);
+    }
   }
-  
 
   return (
     <div className="movieForm">
@@ -75,8 +73,8 @@ export default function MovieForm({toggle,setMovieList,defaultValues={}}) {
         <FormGroup>
           <Label for="rating">Ratings</Label>
           <Input
-            innerRef={register({ required: true })}
-            type="number"
+            innerRef={register({ required: true,pattern: /^[0-9-.]*$/})}
+            type="text"
             name="rating"
             id="rating"
             placeholder="8(out of 10)"
@@ -114,7 +112,14 @@ export default function MovieForm({toggle,setMovieList,defaultValues={}}) {
         </FormGroup>
         <FormGroup>
           <Label for="genres">Genres</Label>
-          <Select isMulti={true} name="genres" id="genres" value={watchGenres} options={options} onChange={selectHandler} />
+          <Select
+            isMulti={true}
+            name="genres"
+            id="genres"
+            value={watchGenres}
+            options={options}
+            onChange={selectHandler}
+          />
         </FormGroup>
         <FormGroup>
           <Label for="overview">Overview</Label>
@@ -136,8 +141,8 @@ export default function MovieForm({toggle,setMovieList,defaultValues={}}) {
             placeholder="movie cast seperated by comma's"
           />
         </FormGroup>
-        <Button color="primary" type="submit" onClick={toggle}>
-          Done
+        <Button color="primary" type="submit">
+          Submit
         </Button>
       </Form>
     </div>

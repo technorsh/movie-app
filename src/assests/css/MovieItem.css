@@ -11,18 +11,18 @@
 
 .movie-img>img{
     border:2px white solid;
-    margin-right: 1rem;
     width:100%;
 }
 
 .movie-info{
+    padding: 2rem 0;
     margin-left: 2rem;
-
 }
-
+.movie-info>h1,.movie-info>h4{
+    padding-bottom: 1rem;
+}
 .readMoreButton{
     margin:1rem 1rem 0 0;
-
 }
 
 .remove_button{
@@ -30,5 +30,9 @@
 }
 
 .edit_button{
+    margin:1rem 1rem 0 1rem;
+}
+
+.save_button{
     margin:1rem 1rem 0 1rem;
 }
