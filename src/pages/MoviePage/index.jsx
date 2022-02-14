@@ -1,4 +1,4 @@
-import React, { useContext, useState } from "react";
+import React, { useContext, useState ,useEffect} from "react";
 import { useParams } from "react-router-dom";
 import {
   Container,
@@ -12,6 +12,7 @@ import {
   ModalHeader,
   ModalBody,
 } from "reactstrap";
+import axios from "axios";
 import "../../assests/css/MoviePage.css";
 import AppContext from "../../context/AppContext";
 import MovieForm from "../../components/MovieForm";
@@ -20,10 +21,39 @@ export default function MoviePage() {
   const [modal, setModal] = useState(false);
   const toggle = () => setModal(!modal);
   const { state, actions } = useContext(AppContext);
-
+  const [movie, setMovie] = useState();
   const { id } = useParams();
-  const list=state?.isSearch ?state?.searchedMovieList :state?.movieList;
-  const movie = list.find((item) => item?.id === parseInt(id));
+  
+  useEffect(() => {
+    if (state?.isSearch) {
+      axios
+        .get(
+          `https://api.themoviedb.org/3/movie/${id}?api_key=1f49aa891b7f48738c691da267debcdf&language=en-US`
+        )
+        .then((res) => {
+          const data = res.data;
+          setMovie({
+            id: data?.id,
+            overview: data?.overview,
+            movie: data?.title,
+            image: data?.poster_path
+              ? `https://image.tmdb.org/t/p/w500${data?.poster_path}`
+              : null,
+            releaseDate: data?.release_date,
+            language: data?.original_language,
+            rating: data?.vote_average,
+            voteCount: data?.vote_count,
+            genres:data?.genres?.map(item=>{
+              return {value:item?.name,label:item?.name};
+            })
+          });
+        }).catch(err=>{
+          console.log(err);
+      });
+    } else {
+      setMovie(state?.movieList?.find((item) => item?.id === parseInt(id)));
+    }
+  }, [id,state?.movieList]);
   
   return (
     <div className="moviePage">
@@ -31,7 +61,13 @@ export default function MoviePage() {
         <Row>
           <Col md="6">
             <div className="movieImage">
-              <img src={movie?.image??"https://clients.cylindo.com/viewer/3.x/v3.0/documentation/img/not_found.gif"} alt={movie?.movie} />
+              <img
+                src={
+                  movie?.image ??
+                  "https://clients.cylindo.com/viewer/3.x/v3.0/documentation/img/not_found.gif"
+                }
+                alt={movie?.movie}
+              />
             </div>
           </Col>
           <Col md="6">
@@ -42,6 +78,7 @@ export default function MoviePage() {
               <div className="releaseDate">
                 <span>{`Release date : ${movie?.releaseDate}`}</span>
               </div>
+
               {movie?.genres && (
                 <div className="movieGenres">
                   <span>Tags : </span>
@@ -123,14 +160,14 @@ export default function MoviePage() {
           <Row>
             <Col>
               <div className="removeButton">
-                  <Button
-                    onClick={() => actions?.onRemoveHandler(parseInt(id))}
-                    block
-                    color="danger"
-                    size="md"
-                  >
-                    Remove
-                  </Button>
+                <Button
+                  onClick={() => actions?.onRemoveHandler(parseInt(id))}
+                  block
+                  color="danger"
+                  size="md"
+                >
+                  Remove
+                </Button>
               </div>
             </Col>
             <Col>

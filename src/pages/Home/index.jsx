@@ -1,15 +1,16 @@
-import React from "react";
+import React ,{useState,useContext} from "react";
 import AddMovie from "./AddMovie";
 import MovieList from "./MovieList";
 import '../../assests/css/Home.css';
 import Search from "./Search";
-import SearchMovieList from "./SearchMovieList";
-import { useContext } from "react";
+import { Spinner } from 'reactstrap';
 import AppContext from "../../context/AppContext";
 import MyMovies from "./MyMovies";
+import SearchMovieList from "./SearchMovieList";
 
 export default function Home(){
     const {state}=useContext(AppContext);
+    const [loading,setLoading]=useState(false);
 
     return (
         <div className="home">
@@ -17,15 +18,17 @@ export default function Home(){
                 <AddMovie />
                 <MyMovies />
             </div>
-            {/* <AddMovie />
-            <MyMovies /> */}
-            
-            <Search />
-            {state?.isSearch &&<SearchMovieList />}
-            {
-                state?.isSearch===false &&
-                <MovieList />
+            <Search setLoading={setLoading} loading={loading} />
+            {state?.isSearch && loading && 
+                <div className="spinner">
+                    <center>
+                    <Spinner type="grow" color="success" />
+                    <Spinner type="grow" color="success" />
+                    <Spinner type="grow" color="success" />
+                    </center>
+                </div>
             }
+            {state?.isSearch ? <SearchMovieList />:<MovieList />}
             
         </div>
     );

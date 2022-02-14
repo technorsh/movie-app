@@ -1,5 +1,4 @@
-import React from "react";
-import { useContext } from "react";
+import React,{ useContext } from "react";
 import { Button } from "reactstrap";
 import AppContext from "../../context/AppContext";
 import '../../assests/css/MyMovies.css';
