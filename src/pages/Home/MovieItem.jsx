@@ -11,7 +11,7 @@ import {
 } from "reactstrap";
 import MovieForm from "../../components/MovieForm";
 import AppContext from "../../context/AppContext";
-import "../../assests/css/MovieItem.css";
+import "../../assests/css/MovieItem.scss";
 
 export default function MovieItem({ movie }) {
   const [modal, setModal] = useState(false);

@@ -1,7 +1,7 @@
 import React ,{useState,useContext} from "react";
 import AddMovie from "./AddMovie";
 import MovieList from "./MovieList";
-import '../../assests/css/Home.css';
+import '../../assests/css/Home.scss';
 import Search from "./Search";
 import { Spinner } from 'reactstrap';
 import AppContext from "../../context/AppContext";
@@ -28,7 +28,7 @@ export default function Home(){
                     </center>
                 </div>
             }
-            {state?.isSearch ? <SearchMovieList />:<MovieList />}
+            {state?.isSearch && !loading ? <SearchMovieList />:<MovieList />}
             
         </div>
     );

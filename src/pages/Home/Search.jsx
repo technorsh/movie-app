@@ -1,6 +1,6 @@
 import React,{useContext} from "react";
 import { InputGroup,Input,InputGroupAddon,Button } from "reactstrap";
-import '../../assests/css/Search.css';
+import '../../assests/css/Search.scss';
 import AppContext from "../../context/AppContext";
 import axios from "axios";
 

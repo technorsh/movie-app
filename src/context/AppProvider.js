@@ -6,7 +6,7 @@ import AppContext from "./AppContext";
 export default function AppProvider(props){
     const [searchedMovieList,setSearchMovieList]=useState([]);
     const [isSearch,setIsSearch]=useState(false);
-    const[movieList,setMovieList]=useState(props.list??[]);
+    const [movieList,setMovieList]=useState(props.list??[]);
     const [input,setInput]=useState("");
     const history=useHistory();
 

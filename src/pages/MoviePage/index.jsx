@@ -13,7 +13,7 @@ import {
   ModalBody,
 } from "reactstrap";
 import axios from "axios";
-import "../../assests/css/MoviePage.css";
+import "../../assests/css/MoviePage.scss";
 import AppContext from "../../context/AppContext";
 import MovieForm from "../../components/MovieForm";
 

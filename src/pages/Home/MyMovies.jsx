@@ -1,7 +1,7 @@
 import React,{ useContext } from "react";
 import { Button } from "reactstrap";
 import AppContext from "../../context/AppContext";
-import '../../assests/css/MyMovies.css';
+import '../../assests/css/MyMovies.scss';
 
 export default function MyMovies(){
     const {actions}=useContext(AppContext);
