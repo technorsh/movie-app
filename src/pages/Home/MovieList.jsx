@@ -1,13 +1,13 @@
-import React, { useContext } from "react";
-import AppContext from "../../context/AppContext";
+import React from "react";
 import MovieItem from "./MovieItem";
 
-export default function MovieList(){
-    const{state}=useContext(AppContext)
+export default function MovieList({list}){
     return (
         <div className="movieList">
             <ul>
-            {state?.movieList?.map(item=><MovieItem movie={item} key={item?.id} />)}
+            {list.length? list.map(item=>{
+                return <MovieItem movie={item} key={item?.id} />
+            }) :<h2>No results found ...</h2> }
             </ul>  
         </div>
     )

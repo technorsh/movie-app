@@ -2,12 +2,14 @@ import React,{useState} from "react";
 import { useHistory } from "react-router-dom";
 import Swal from 'sweetalert2';
 import AppContext from "./AppContext";
+import axios from "axios";
 
 export default function AppProvider(props){
     const [searchedMovieList,setSearchMovieList]=useState([]);
     const [isSearch,setIsSearch]=useState(false);
     const [movieList,setMovieList]=useState(props.list??[]);
     const [input,setInput]=useState("");
+    const [loading,setLoading]=useState(false);
     const history=useHistory();
 
     function sweetAlert(icon,text){
@@ -101,12 +103,43 @@ export default function AppProvider(props){
         callback && callback();
     }
 
+    function searchHandler(){
+        setLoading(true);
+        axios
+            .get(
+            `https://api.themoviedb.org/3/search/movie?api_key=1f49aa891b7f48738c691da267debcdf&page=1&query=${input}`
+            )
+            .then((res) => {
+                // console.log(res?.data?.results);
+                const newList=res?.data?.results?.map(item=>{
+                    const data={
+                        id:item?.id,
+                        overview:item?.overview,
+                        movie:item?.title,
+                        image:item?.poster_path?`https://image.tmdb.org/t/p/w500${item?.poster_path}`:null,
+                        releaseDate:item?.release_date,
+                        language:item?.original_language,
+                        rating:item?.vote_average,
+                        voteCount:item?.vote_count,
+                    };
+                    return data;
+                });
+                setLoading(false);
+                setSearchMovieList(newList);
+            }).catch(err=>{
+                console.log(err);
+                setLoading(false);
+            })
+        setIsSearch(true);
+    }
+
     const contextValue = {
         state: {
             movieList,
             searchedMovieList,
             input,
-            isSearch
+            isSearch,
+            loading
         },
         actions: {
             setMovieList,
@@ -116,7 +149,8 @@ export default function AppProvider(props){
             onAddHandler,
             onEditHandler,
             onRemoveHandler,
-            onSaveHandler
+            onSaveHandler,
+            searchHandler
         }
     }
     return (

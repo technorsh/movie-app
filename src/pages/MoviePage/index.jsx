@@ -53,7 +53,7 @@ export default function MoviePage() {
     } else {
       setMovie(state?.movieList?.find((item) => item?.id === parseInt(id)));
     }
-  }, [id,state?.movieList]);
+  }, [state?.movieList]);
   
   return (
     <div className="moviePage">

@@ -5,7 +5,7 @@
     padding: 2rem 3rem;
     background-color: #effaef;
 
-    & .movie-img{
+    .movie-img{
         padding: 2rem 0;
 
         & img{
@@ -14,51 +14,25 @@
         }
     }
 
-    & .movie-info{
+    .movie-info{
         padding: 2rem 0;
-        margin-left: 2rem;
 
-        & h1{
+        h1{
             padding-bottom: 1rem;
         }
-        & h4{
+        h4{
             padding-bottom: 1rem;
         }
-        & .readMoreButton{
+        .readMoreButton{
             margin:1rem 1rem 0 0;
         }
         
-        & .remove_button{
+        .remove_button{
             margin:1rem 1rem 0 1rem;
         }
         
-        & .edit_button{
+        .edit_button{
             margin:1rem 1rem 0 1rem;
         }
     }
 }
-
-
-// .movie-img>img{
-//     border:2px white solid;
-//     width:80%;
-// }
-
-// .movie-info{
-//     padding: 2rem 0;
-//     margin-left: 2rem;
-// }
-// .movie-info>h1,.movie-info>h4{
-//     padding-bottom: 1rem;
-// }
-// .readMoreButton{
-//     margin:1rem 1rem 0 0;
-// }
-
-// .remove_button{
-//     margin:1rem 1rem 0 1rem;
-// }
-
-// .edit_button{
-//     margin:1rem 1rem 0 1rem;
-// }

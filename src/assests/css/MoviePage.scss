@@ -4,91 +4,46 @@
     min-height: 100vh;
     padding:5rem 1rem;
 
-    & .movieImage{
+    .movieImage{
         margin: 5% 5%;
         & img{
             border:2px whitesmoke solid;
             width: 80%;
         }
     }
-    & .movieInfo{
+    .movieInfo{
         margin: 5% 5%;
         
-        & .releaseDate{
+        .releaseDate{
             margin: 2rem 0;
         }
 
-        & .movieGenres{
+        .movieGenres{
             margin:2rem 0;
 
-            & .genreItem{
+            .genreItem{
                 margin:1rem 0.5rem;
             }
         }
 
-        & .movieLanguages{
+        .movieLanguages{
             margin: 2rem 0;
 
-            & .languageItem{
+            .languageItem{
                 margin:1rem 0.5rem;
             }
         }
 
-        & .movieRating{
+        .movieRating{
             margin:1rem 0;
         }
     }
 
-    & .movieOverview{
+    .movieOverview{
         margin: 5% 5%;
     }
 
-    & .movieCast{
+    .movieCast{
         margin: 5% 5%;
     }
 }
-
-// .movieImage{
-//     margin: 5% 5%;
-// }
-
-// .movieImage>img{
-//     border:2px whitesmoke solid;
-//     width: 80%;
-// }
-
-// .movieInfo{
-//     margin: 5% 5%; 
-// }
-
-// .releaseDate{
-//     margin: 2rem 0;
-// }
-
-// .movieGenres{
-//     margin:2rem 0;
-// }
-
-// .genreItem{
-//     margin:1rem 0.5rem;
-// }
-
-// .movieLanguages{
-//     margin: 2rem 0;
-// }
-
-// .languageItem{
-//     margin:1rem 0.5rem;
-// }
-
-// .movieRating{
-//     margin:1rem 0;
-// }
-
-// .movieOverview{
-//     margin: 5% 5%;
-// }
-
-// .movieCast{
-//     margin: 5% 5%;
-// }
