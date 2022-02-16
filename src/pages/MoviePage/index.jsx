@@ -13,9 +13,26 @@ import {
   ModalBody,
 } from "reactstrap";
 import axios from "axios";
-import "../../assests/css/MoviePage.scss";
 import AppContext from "../../context/AppContext";
 import MovieForm from "../../components/MovieForm";
+import styled from "styled-components";
+
+const MoviePageStyle=styled("div")`
+  background-color: #f2fcf4;
+  background-image: url("https://www.transparenttextures.com/patterns/climpek.png");
+  min-height: 100vh;
+  padding:5rem 1rem;
+`
+const MovieImg=styled("img")`
+  border:2px whitesmoke solid;
+  width: 80%;
+`
+const MarginPercentage=styled("div")`
+  margin:${props=>props.first}% ${props=>props.second}%;
+`
+const MarginREM=styled("div")`
+  margin:${props=>props.first}rem ${props=>props.second}rem;
+`
 
 export default function MoviePage() {
   const [modal, setModal] = useState(false);
@@ -56,70 +73,70 @@ export default function MoviePage() {
   }, [state?.movieList]);
   
   return (
-    <div className="moviePage">
+    <MoviePageStyle>
       <Container>
         <Row>
           <Col md="6">
-            <div className="movieImage">
-              <img
+            <MarginPercentage first={5} second={5}>
+              <MovieImg
                 src={
                   movie?.image ??
                   "https://clients.cylindo.com/viewer/3.x/v3.0/documentation/img/not_found.gif"
                 }
                 alt={movie?.movie}
               />
-            </div>
+            </MarginPercentage>
           </Col>
           <Col md="6">
-            <div className="movieInfo">
+            <MarginPercentage first={5} second={5}>
               <div className="movieName">
                 <h1>{movie?.movie}</h1>
               </div>
-              <div className="releaseDate">
+              <MarginREM first={2} second={0}>
                 <span>{`Release date : ${movie?.releaseDate}`}</span>
-              </div>
+              </MarginREM>
 
               {movie?.genres && (
-                <div className="movieGenres">
+                <MarginREM first={2} second={0}>
                   <span>Tags : </span>
                   {movie?.genres.map((item, idx) => (
-                    <span className="genreItem" key={idx}>
+                    <MarginREM as="span" first={1} second={0.5} key={idx}>
                       <Badge color="success" pill>
                         {item?.label}
                       </Badge>
-                    </span>
+                    </MarginREM>
                   ))}
-                </div>
+                </MarginREM>
               )}
               {movie?.language && (
-                <div className="movieLanguages">
+                <MarginREM first={2} second={0}>
                   <span>Languages : </span>
                   {movie?.language.split(",").map((item) => (
-                    <span className="languageItem" key={item}>
+                    <MarginREM as="span" first={1} second={0.5} key={item}>
                       <Badge color="warning">{item}</Badge>
-                    </span>
+                    </MarginREM>
                   ))}
-                </div>
+                </MarginREM>
               )}
-              <div className="movieRating">
+              <MarginREM first={1} second={0}>
                 <p>
                   ⭐️⭐️⭐️ {`${movie?.rating} / ${movie?.voteCount} votes`}
                 </p>
-              </div>
-            </div>
+              </MarginREM>
+            </MarginPercentage>
           </Col>
         </Row>
 
         {movie?.cast ? (
           <Row>
             <Col md="6">
-              <div className="movieOverview">
+              <MarginPercentage first={5} second={5}>
                 <h4>Overview</h4>
                 <p>{movie?.overview}</p>
-              </div>
+              </MarginPercentage>
             </Col>
             <Col md="6">
-              <div className="movieCast">
+              <MarginPercentage first={5} second={5}>
                 <h4>Cast</h4>
                 <ListGroup>
                   {movie?.cast.split(",").map((item, i) => (
@@ -128,16 +145,16 @@ export default function MoviePage() {
                     </ListGroupItem>
                   ))}
                 </ListGroup>
-              </div>
+              </MarginPercentage>
             </Col>
           </Row>
         ) : (
           <Row>
             <Col md="12">
-              <div className="movieOverview">
+              <MarginPercentage first={5} second={5}>
                 <h4>Overview</h4>
                 <p>{movie?.overview}</p>
-              </div>
+              </MarginPercentage>
             </Col>
           </Row>
         )}
@@ -186,6 +203,6 @@ export default function MoviePage() {
           <MovieForm toggle={toggle} defaultValues={movie} />
         </ModalBody>
       </Modal>
-    </div>
+    </MoviePageStyle>
   );
 }

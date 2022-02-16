@@ -11,7 +11,26 @@ import {
 } from "reactstrap";
 import MovieForm from "../../components/MovieForm";
 import AppContext from "../../context/AppContext";
-import "../../assests/css/MovieItem.scss";
+import styled from "styled-components";
+
+const MovieItemStyle=styled("div")`
+  border:2px whitesmoke solid;
+  box-shadow:20px 20px 50px gainsboro;
+  margin:5% 10%;
+  padding: 3rem 3rem;
+  background-color: #effaef;
+
+`
+const MovieImageStyle=styled("img")`
+  border:2px white solid;
+  width:80%;
+`
+const PaddingBottom=styled("h1")`
+  padding-bottom: 1rem;
+`
+const MarginButton=styled("span")`
+  margin:1rem 1rem ${props=>props.bottom}rem ${props=>props.left}rem;
+`
 
 export default function MovieItem({ movie }) {
   const [modal, setModal] = useState(false);
@@ -20,37 +39,35 @@ export default function MovieItem({ movie }) {
   const { state, actions } = useContext(AppContext);
 
   return (
-    <div className="movieItem">
+    <MovieItemStyle>
       <Container>
         <Row>
           <Col md="4">
-            <div className="movie-img">
-              <img
+              <MovieImageStyle
                 src={
                   movie?.image ??
                   "https://clients.cylindo.com/viewer/3.x/v3.0/documentation/img/not_found.gif"
                 }
                 alt={movie?.movie}
               />
-            </div>
           </Col>
           <Col md="8">
-            <div className="movie-info">
-              <h1>{movie?.movie}</h1>
-              <h4>⭐️⭐️⭐️ {movie?.rating}</h4>
+            <div>
+              <PaddingBottom>{movie?.movie}</PaddingBottom>
+              <PaddingBottom as="h4">⭐️⭐️⭐️ {movie?.rating}</PaddingBottom>
               <p>
                 {movie?.overview?.split(" ").slice(0, 20).join(" ") + "..."}
               </p>
               <Link to={`/${movie?.id}`}>
-                <span className="readMoreButton">
+                <MarginButton bottom={0} left={0}>
                   <Button color="success" size="sm">
                     Read more
                   </Button>
-                </span>
+                </MarginButton>
               </Link>
               {state?.isSearch === false && (
                 <span>
-                  <span className="remove_button">
+                  <MarginButton bottom={0} left={1}>
                     <Button
                       onClick={() => actions?.onRemoveHandler(movie?.id)}
                       color="danger"
@@ -58,12 +75,12 @@ export default function MovieItem({ movie }) {
                     >
                       Remove
                     </Button>
-                  </span>
-                  <span className="edit_button">
+                  </MarginButton>
+                  <MarginButton bottom={0} left={1}>
                     <Button color="primary" size="sm" onClick={toggle}>
                       Edit
                     </Button>
-                  </span>
+                  </MarginButton>
                 </span>
               )}
             </div>
@@ -76,6 +93,6 @@ export default function MovieItem({ movie }) {
           <MovieForm toggle={toggle} defaultValues={movie} />
         </ModalBody>
       </Modal>
-    </div>
+    </MovieItemStyle>
   );
 }

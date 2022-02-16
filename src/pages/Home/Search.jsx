@@ -1,9 +1,14 @@
 import React,{useContext} from "react";
 import { InputGroup,Input,InputGroupAddon,Button } from "reactstrap";
-import '../../assests/css/Search.scss';
+import styled from "styled-components";
 import AppContext from "../../context/AppContext";
 
-export default function Search({loading,setLoading}){
+const SearchStyle=styled("div")`
+    margin:0 7% 0 9%;
+    padding: 2rem 3rem;
+`
+
+export default function Search(){
     const {state,actions}=useContext(AppContext);
     
     function onChangeHandler(e){
@@ -11,15 +16,13 @@ export default function Search({loading,setLoading}){
     }
 
     return (
-        <div className="search">
+        <SearchStyle>
             <InputGroup>
                 <Input type="text" value={state?.input} onChange={onChangeHandler} placeholder="Search by movie name" />
                 <InputGroupAddon addonType="append">
-                    <div className="search-button">
                         <Button color="warning" onClick={actions?.searchHandler} disabled={state?.loading}>Search</Button>
-                    </div>                   
                 </InputGroupAddon>
             </InputGroup>
-        </div>
+        </SearchStyle>
     );
 }

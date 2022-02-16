@@ -1,8 +1,12 @@
 import React,{ useContext } from "react";
 import { Button } from "reactstrap";
 import AppContext from "../../context/AppContext";
-import '../../assests/css/MyMovies.scss';
+import styled from "styled-components";
 
+const MyMoviesStyle=styled("div")`
+    width:50%;
+    margin:0.5rem 0.5rem;
+`
 export default function MyMovies(){
     const {actions}=useContext(AppContext);
     function onClickHandler(){
@@ -10,10 +14,10 @@ export default function MyMovies(){
         actions?.setInput("");
     }
     return (
-        <div className="myMovies">
+        <MyMoviesStyle>
             <Button color="info" size="lg" onClick={onClickHandler} block>
                     My Movies
             </Button>
-        </div>
+        </MyMoviesStyle>
     );
 }
