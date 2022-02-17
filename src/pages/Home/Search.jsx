@@ -1,6 +1,7 @@
 import React,{useContext} from "react";
-import { InputGroup,Input,InputGroupAddon,Button } from "reactstrap";
+import { InputGroup,Input,InputGroupAddon } from "reactstrap";
 import styled from "styled-components";
+import ButtonComponent from "../../components/ButtonComponent";
 import AppContext from "../../context/AppContext";
 
 const SearchStyle=styled("div")`
@@ -20,7 +21,7 @@ export default function Search(){
             <InputGroup>
                 <Input type="text" value={state?.input} onChange={onChangeHandler} placeholder="Search by movie name" />
                 <InputGroupAddon addonType="append">
-                        <Button color="warning" onClick={actions?.searchHandler} disabled={state?.loading}>Search</Button>
+                        <ButtonComponent color="warning" onClickHandler={actions?.searchHandler} shadow disabled={state?.loading}>Search</ButtonComponent>
                 </InputGroupAddon>
             </InputGroup>
         </SearchStyle>

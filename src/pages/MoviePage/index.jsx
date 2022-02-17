@@ -1,4 +1,4 @@
-import React, { useContext, useState ,useEffect} from "react";
+import React, { useContext, useState, useEffect } from "react";
 import { useParams } from "react-router-dom";
 import {
   Container,
@@ -7,7 +7,6 @@ import {
   Badge,
   ListGroup,
   ListGroupItem,
-  Button,
   Modal,
   ModalHeader,
   ModalBody,
@@ -16,23 +15,24 @@ import axios from "axios";
 import AppContext from "../../context/AppContext";
 import MovieForm from "../../components/MovieForm";
 import styled from "styled-components";
+import ButtonComponent from "../../components/ButtonComponent";
 
-const MoviePageStyle=styled("div")`
+const MoviePageStyle = styled("div")`
   background-color: #f2fcf4;
   background-image: url("https://www.transparenttextures.com/patterns/climpek.png");
   min-height: 100vh;
-  padding:5rem 1rem;
-`
-const MovieImg=styled("img")`
-  border:2px whitesmoke solid;
+  padding: 5rem 1rem;
+`;
+const MovieImg = styled("img")`
+  border: 2px whitesmoke solid;
   width: 80%;
-`
-const MarginPercentage=styled("div")`
-  margin:${props=>props.first}% ${props=>props.second}%;
-`
-const MarginREM=styled("div")`
-  margin:${props=>props.first}rem ${props=>props.second}rem;
-`
+`;
+const MarginPercentage = styled("div")`
+  margin: ${(props) => props.first}% ${(props) => props.second}%;
+`;
+const MarginREM = styled("div")`
+  margin: ${(props) => props.first}rem ${(props) => props.second}rem;
+`;
 
 export default function MoviePage() {
   const [modal, setModal] = useState(false);
@@ -40,7 +40,7 @@ export default function MoviePage() {
   const { state, actions } = useContext(AppContext);
   const [movie, setMovie] = useState();
   const { id } = useParams();
-  
+
   useEffect(() => {
     if (state?.isSearch) {
       axios
@@ -60,18 +60,19 @@ export default function MoviePage() {
             language: data?.original_language,
             rating: data?.vote_average,
             voteCount: data?.vote_count,
-            genres:data?.genres?.map(item=>{
-              return {value:item?.name,label:item?.name};
-            })
+            genres: data?.genres?.map((item) => {
+              return { value: item?.name, label: item?.name };
+            }),
           });
-        }).catch(err=>{
+        })
+        .catch((err) => {
           console.log(err);
-      });
+        });
     } else {
       setMovie(state?.movieList?.find((item) => item?.id === parseInt(id)));
     }
   }, [state?.movieList]);
-  
+ console.log(movie);
   return (
     <MoviePageStyle>
       <Container>
@@ -89,9 +90,7 @@ export default function MoviePage() {
           </Col>
           <Col md="6">
             <MarginPercentage first={5} second={5}>
-              <div className="movieName">
-                <h1>{movie?.movie}</h1>
-              </div>
+              <h1>{movie?.movie}</h1>
               <MarginREM first={2} second={0}>
                 <span>{`Release date : ${movie?.releaseDate}`}</span>
               </MarginREM>
@@ -132,7 +131,7 @@ export default function MoviePage() {
             <Col md="6">
               <MarginPercentage first={5} second={5}>
                 <h4>Overview</h4>
-                <p>{movie?.overview}</p>
+                <p>{movie?.overview?.length? movie?.overview:"No overview found!!"}</p>
               </MarginPercentage>
             </Col>
             <Col md="6">
@@ -153,7 +152,7 @@ export default function MoviePage() {
             <Col md="12">
               <MarginPercentage first={5} second={5}>
                 <h4>Overview</h4>
-                <p>{movie?.overview}</p>
+                <p>{movie?.overview?.length? movie?.overview:"No overview found!!"}</p>
               </MarginPercentage>
             </Col>
           </Row>
@@ -161,38 +160,40 @@ export default function MoviePage() {
         {state?.isSearch ? (
           <Row>
             <Col>
-              <div className="save_button">
-                <Button
-                  onClick={() => actions?.onSaveHandler(movie)}
-                  color="success"
-                  size="md"
-                  block
-                >
-                  Save
-                </Button>
-              </div>
+              <ButtonComponent
+                onClickHandler={() => actions?.onSaveHandler(movie)}
+                color="success"
+                size="md"
+                block
+                shadow
+              >
+                Save
+              </ButtonComponent>
             </Col>
           </Row>
         ) : (
           <Row>
             <Col>
-              <div className="removeButton">
-                <Button
-                  onClick={() => actions?.onRemoveHandler(parseInt(id))}
-                  block
-                  color="danger"
-                  size="md"
-                >
-                  Remove
-                </Button>
-              </div>
+              <ButtonComponent
+                onClickHandler={() => actions?.onRemoveHandler(parseInt(id))}
+                color="danger"
+                size="md"
+                block
+                shadow
+              >
+                Remove
+              </ButtonComponent>
             </Col>
             <Col>
-              <div className="editButton">
-                <Button color="primary" size="md" onClick={toggle} block>
-                  Edit
-                </Button>
-              </div>
+              <ButtonComponent
+                onClickHandler={toggle}
+                color="primary"
+                size="md"
+                block
+                shadow
+              >
+                Edit
+              </ButtonComponent>
             </Col>
           </Row>
         )}

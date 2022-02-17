@@ -3,12 +3,12 @@ import MovieItem from "./MovieItem";
 
 export default function MovieList({list}){
     return (
-        <div className="movieList">
+        <>
             <ul>
-            {list.length? list.map(item=>{
+            {list?.length? list.map(item=>{
                 return <MovieItem movie={item} key={item?.id} />
             }) :<h2>No results found ...</h2> }
             </ul>  
-        </div>
+        </>
     )
 }

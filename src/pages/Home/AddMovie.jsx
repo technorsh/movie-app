@@ -1,6 +1,7 @@
 import React, { useState } from "react";
-import { Button, Modal, ModalHeader, ModalBody } from "reactstrap";
+import { Modal, ModalHeader, ModalBody } from "reactstrap";
 import styled from "styled-components";
+import ButtonComponent from "../../components/ButtonComponent";
 import MovieForm from "../../components/MovieForm";
 
 const AddMovieStyle=styled("div")`
@@ -14,9 +15,9 @@ export default function AddMovie() {
 
   return (
     <AddMovieStyle>
-      <Button color="info" size="lg" onClick={toggle} block>
+      <ButtonComponent color="info" size="lg" onClickHandler={toggle} block shadow>
         Add Your Favourite Movie
-      </Button>
+      </ButtonComponent>
       <Modal isOpen={modal} toggle={toggle}>
         <ModalHeader toggle={toggle}>Add Your Favourite Movie</ModalHeader>
         <ModalBody>

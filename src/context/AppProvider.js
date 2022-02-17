@@ -110,7 +110,6 @@ export default function AppProvider(props){
             `https://api.themoviedb.org/3/search/movie?api_key=1f49aa891b7f48738c691da267debcdf&page=1&query=${input}`
             )
             .then((res) => {
-                // console.log(res?.data?.results);
                 const newList=res?.data?.results?.map(item=>{
                     const data={
                         id:item?.id,
