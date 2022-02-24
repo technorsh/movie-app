@@ -1,0 +1,21 @@
+version: 0.0
+os: linux
+
+files:
+  - source: /
+    destination: /home/frontend
+
+hooks:
+  BeforeInstall: 
+    - location: scripts/beforeinstall.sh
+      timeout: 100
+      runas: root
+  AfterInstall: 
+    - location: scripts/afterinstall.sh
+      timeout: 300
+      runas: root
+  ApplicationStart:
+    - location: scripts/onstart.sh
+      timeout: 100
+      runas: root
+    
