@@ -1,7 +1,4 @@
 version: 0.2
-env:
-  parameter-store:
-    S3_BUCKET: "S3_BUCKET"
 
 phases:
   pre_build:
@@ -18,7 +15,7 @@ phases:
     commands:
       - echo Build completed on `date` and started Apache server
       - rm -R node_modules
-      - aws s3 cp --recursive --acl public-read-write build s3://${S3_BUCKET}/ 
+      - aws s3 cp --recursive --acl public-read-write ./build s3://${BUCKET_NAME}/ 
       - rm -R build
       
 artifacts:
