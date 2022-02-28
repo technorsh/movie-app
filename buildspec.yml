@@ -2,11 +2,13 @@ version: 0.2
 env:
   parameter-store:
     S3_BUCKET: "S3_BUCKET"
+    BUCKET_NAME: "BUCKET_NAME"
 
 phases:
   pre_build:
     commands:
       - echo 'Pre Build Phase ...'
+      - echo my s3 bucket name "$S3_BUCKET" 
       - curl -sL https://rpm.nodesource.com/setup_17.x | bash -
       - yum -y install nodejs npm --skip-broken
       - npm install
