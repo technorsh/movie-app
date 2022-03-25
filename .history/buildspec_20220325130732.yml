@@ -1,0 +1,37 @@
+version: 0.2
+env:
+  parameter-store:
+    BUCKET: "S3_BUCKET"
+    BUCKET_NAME: "BUCKET_NAME"
+
+phases:
+  pre_build:
+    commands:
+      - echo 'Pre Build Phase ...'
+      - echo my s3 bucket name "$BUCKET" 
+      - curl -sL https://rpm.nodesource.com/setup_17.x | bash -
+      - yum -y install nodejs npm --skip-broken
+      - npm install
+  build:
+    commands:
+      - echo Build started on `date`
+      - npm run build
+  post_build:
+    commands:
+      - echo Build completed on `date` and started Apache server
+      - rm -R node_modules
+      - echo "${BUCKET_NAME}"
+      - aws s3 cp build s3://${BUCKET} --recursive
+      - rm -R build
+      - printf '[{"name":"container_name","imageUri":"image_URI"}]' > imagedefinitions.json
+      
+artifacts:
+  # type: zip
+  # paths:
+  #   - '*'
+  files:
+        - imagedefinitions.json
+  #   - "**/*"
+  # name: $(AWS_REGION)-$(date +%Y-%m-%d) 
+
+  # discard-paths: no
