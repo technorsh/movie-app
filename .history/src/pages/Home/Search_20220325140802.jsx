@@ -21,7 +21,7 @@ export default function Search(){
             <InputGroup>
                 <Input type="text" value={state?.input} onChange={onChangeHandler} placeholder="Search by movie name" />
                 <InputGroupAddon addonType="append">
-                        <ButtonComponent color="warning" onClickHandler={actions?.searchHandler} shadow disabled={state?.loading}>Search Button</ButtonComponent>
+                        <ButtonComponent color="warning" onClickHandler={actions?.searchHandler} shadow disabled={state?.loading}>Search </ButtonComponent>
                 </InputGroupAddon>
             </InputGroup>
         </SearchStyle>
