@@ -51,4 +51,5 @@ artifacts:
     # - imagedefinitions.json
     - "**/*"
   name: $(AWS_REGION)-$(date +%Y-%m-%d) 
-  # discard-paths: no
+
+  discard-paths: no

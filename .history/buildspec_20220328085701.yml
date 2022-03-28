@@ -45,10 +45,10 @@ phases:
       
 artifacts:
   type: zip
-  # paths:
-  #   - '*'
-  files: 
-    # - imagedefinitions.json
-    - "**/*"
-  name: $(AWS_REGION)-$(date +%Y-%m-%d) 
+  paths:
+    - '*'
+  files: imagedefinitions.json
+  #   - "**/*"
+  # name: $(AWS_REGION)-$(date +%Y-%m-%d) 
+
   # discard-paths: no

@@ -35,20 +35,20 @@ phases:
       - rm -R node_modules
       - echo "${BUCKET_NAME}"
       - aws s3 cp build s3://${BUCKET} --recursive
-      # - echo Build completed on `date`
-      # - echo Pushing the Docker image...
-      # - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
-      # # - rm -R build
-      # - echo Writing image definitions file...
-      # - printf '[{"name":"%s","imageUri":"%s"}]' $CONTAINER_NAME $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
+      - echo Build completed on `date`
+      - echo Pushing the Docker image...
+      - docker push $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG
+      # - rm -R build
+      - echo Writing image definitions file...
+      - printf '[{"name":"%s","imageUri":"%s"}]' $CONTAINER_NAME $REPOSITORY_URI:$IMAGE_TAG > imagedefinitions.json
       # - printf '[{"name":"container_name","imageUri":"image_URI"}]' > imagedefinitions.json
       
 artifacts:
-  type: zip
+  # type: zip
   # paths:
   #   - '*'
-  files: 
-    # - imagedefinitions.json
-    - "**/*"
-  name: $(AWS_REGION)-$(date +%Y-%m-%d) 
+  files: imagedefinitions.json
+  #   - "**/*"
+  # name: $(AWS_REGION)-$(date +%Y-%m-%d) 
+
   # discard-paths: no

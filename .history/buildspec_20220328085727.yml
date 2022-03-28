@@ -44,11 +44,12 @@ phases:
       # - printf '[{"name":"container_name","imageUri":"image_URI"}]' > imagedefinitions.json
       
 artifacts:
-  type: zip
+  # type: zip
   # paths:
   #   - '*'
   files: 
     # - imagedefinitions.json
     - "**/*"
   name: $(AWS_REGION)-$(date +%Y-%m-%d) 
+
   # discard-paths: no
