@@ -13,6 +13,10 @@ phases:
   pre_build:
     commands:
       - echo 'Pre Build Phase ...'
+      # - echo Logging in to Amazon ECR...
+      # - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
+      # - REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME
+      # - docker pull $REPOSITORY_URI:$IMAGE_TAG
       - echo my s3 bucket name "$BUCKET" 
       - curl -sL https://rpm.nodesource.com/setup_17.x | bash -
       - yum -y install nodejs npm --skip-broken
@@ -21,6 +25,10 @@ phases:
     commands:
       - echo Build started on `date`
       - npm run build
+      # - echo Build started on `date`
+      # - echo Building the Docker image...          
+      # - docker build --cache-from $REPOSITORY_URI:$IMAGE_TAG -t $IMAGE_REPO_NAME:$IMAGE_TAG .
+      # - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG      
   post_build:
     commands:
       - echo Build completed on `date` and started Apache server
@@ -35,5 +43,5 @@ artifacts:
   files: 
     # - imagedefinitions.json
     - "**/*"
-  name: $(AWS_REGION)-$(date +%Y-%m-%d)
+  name: $(AWS_REGION)-$(date +%Y-%m-%d) 
   # discard-paths: no
