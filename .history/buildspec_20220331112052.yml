@@ -28,11 +28,9 @@ phases:
       - echo "${BUCKET_NAME}"
       - aws s3 cp build s3://${BUCKET} --recursive
 
-eb_codebuild_settings:
-  CodeBuildServiceRole: AdministratorAccess-AWSElasticBeanstalk
-  ComputeType: BUILD_GENERAL1_SMALL
-  Image: 354220933236.dkr.ecr.us-east-1.amazonaws.com/movie-app:latest
-  Timeout: 300
+# eb_codebuild_settings:
+#   CodeBuildServiceRole: AdministratorAccess-AWSElasticBeanstalk
+
 
 artifacts:
   type: zip

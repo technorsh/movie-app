@@ -34,6 +34,7 @@ eb_codebuild_settings:
   Image: 354220933236.dkr.ecr.us-east-1.amazonaws.com/movie-app:latest
   Timeout: 300
 
+
 artifacts:
   type: zip
   # paths:
