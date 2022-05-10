@@ -14,8 +14,7 @@ phases:
     commands:
       - echo 'Pre Build Phase ...'
       - echo Logging in to Amazon ECR...
-      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username AWS --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
-      - echo $PASSWORD | docker login --username $USERNAME --password-stdin
+      - aws ecr get-login-password --region $AWS_DEFAULT_REGION | docker login --username USERNAME --password-stdin $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com
       - REPOSITORY_URI=$AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME
       - docker pull $REPOSITORY_URI:$IMAGE_TAG
       # - echo my s3 bucket name "$BUCKET" 
