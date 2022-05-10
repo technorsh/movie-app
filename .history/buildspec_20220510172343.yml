@@ -28,7 +28,7 @@ phases:
       # - npm run build
       - echo Build started on `date`
       - echo Building the Docker image...
-      - IMAGE_TAG="$IMAGE_REPO_NAME.$(date +%Y-%m-%d.%H.%M.%S)"          
+      - IMAGE_TAG="$IMAGE_REPO_NAME.$(date +%Y-%m-%d.%H.%M.%S) | head -c 10"          
       - docker build --tag $IMAGE_REPO_NAME:$IMAGE_TAG .
       - docker tag $IMAGE_REPO_NAME:$IMAGE_TAG $AWS_ACCOUNT_ID.dkr.ecr.$AWS_DEFAULT_REGION.amazonaws.com/$IMAGE_REPO_NAME:$IMAGE_TAG      
   post_build:
