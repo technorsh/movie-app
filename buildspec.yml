@@ -6,6 +6,8 @@ phases:
       - echo 'Pre Build Phase ...'
       - curl -sL https://rpm.nodesource.com/setup_17.x | bash -
       - yum -y install nodejs npm --skip-broken
+      - npm install -g create-react-app@latest
+      - npm install -g npm@8.9.0
       - npm install
   build:
     commands:
