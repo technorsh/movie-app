@@ -14,7 +14,7 @@ phases:
   post_build:
     commands:
       - echo Build completed on `date` and started Apache server
-      - rm -R node_modules
+      # - rm -R node_modules
       # - aws s3 cp --recursive --acl public-read-write ./build s3://awscodepipeline-s3-bucket/ 
       # - rm -R build
       
