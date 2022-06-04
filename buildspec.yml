@@ -1,10 +1,10 @@
 version: 0.2
 run-as: root
 
-env:
-  parameter-store:
-    BUCKET: "S3_BUCKET"
-    BUCKET_NAME: "BUCKET_NAME"
+# env:
+#   parameter-store:
+#     BUCKET: "S3_BUCKET"
+#     BUCKET_NAME: "BUCKET_NAME"
 
 phases:
   install:
@@ -13,20 +13,20 @@ phases:
   pre_build:
     commands:
       - echo 'Pre Build Phase ...'
-      - echo my s3 bucket name "$BUCKET" 
+#       - echo my s3 bucket name "$BUCKET" 
       - curl -sL https://rpm.nodesource.com/setup_17.x | bash -
       - yum -y install nodejs npm --skip-broken
       - npm install
   build:
     commands:
       - echo Build started on `date`
-      - npm run build
+#       - npm run build
   post_build:
     commands:
       - echo Build completed on `date` and started Apache server
-      - rm -R node_modules
-      - echo "${BUCKET_NAME}"
-      - aws s3 cp build s3://${BUCKET} --recursive
+#       - rm -R node_modules
+#       - echo "${BUCKET_NAME}"
+#       - aws s3 cp build s3://${BUCKET} --recursive
       
 artifacts:
   type: zip
